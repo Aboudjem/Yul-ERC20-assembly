@@ -19,7 +19,7 @@ bytes32 constant approvalHash = 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b229
 /// @title YulERC20 - An example of a token contract using Yul assembly for low-level EVM interactions.
 contract YulERC20 {
 
-
+    // Internal mappings to store balances and allowances
     mapping(address => uint256) internal _balances;
     mapping(address => uint256) internal _allowances;
 
