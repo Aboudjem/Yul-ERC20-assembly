@@ -27,19 +27,50 @@ contract YulERC20Test is Test {
     }
 
     function testBalanceOf(address) public {
-        assertEq(token.balanceOf(owner), 10000);
+        assertEq(token.balanceOf(owner), type(uint).max);
     }
 
 
     function testTransfer(address acc) public {
-
-        assertEq(token.balanceOf(owner), 10000);
-        vm.prank(owner);
+        assertEq(token.balanceOf(owner), type(uint).max);
         vm.assume(acc != owner);
         assertEq(token.transfer(acc, 100), true);
+        assertEq(token.balanceOf(owner), type(uint).max - 100);
+    }
 
-        assertEq(token.balanceOf(owner), 9900);
+    function testApprove(address spender, uint amount) public {
+        assertEq(token.approve(spender, amount), true);
+        assertEq(token.allowance(owner, spender), amount);
+    }
 
-//        assertEq(token.transfer(acc, amount), true);
+    function testTransferFrom(address spenderAcc, uint amount) public {
+        vm.assume(spenderAcc != owner);
+
+        assertEq(token.approve(spenderAcc, amount), true, "Failing approval");
+        uint allowance = token.allowance(owner, spenderAcc);
+        assertEq(allowance, amount);
+
+        uint ownerBalanceBefore = token.balanceOf(owner);
+        uint spenderAccBalanceBefore = token.balanceOf(spenderAcc);
+
+        assertEq(ownerBalanceBefore, type(uint).max, "Balance of Owner should be uintMax");
+        assertEq(spenderAccBalanceBefore, 0, "Balance of Spender should be 0");
+
+        vm.stopPrank();
+        vm.prank(spenderAcc);
+        assertEq(token.transferFrom(owner, spenderAcc, amount), true, "TransferFrom Failed");
+
+        uint ownerBalanceAfter = token.balanceOf(owner);
+        uint spenderAccBalanceAfter = token.balanceOf(spenderAcc);
+
+        assertEq(token.allowance(owner, spenderAcc), allowance - amount, "Incorrect allowance");
+
+        assertEq(ownerBalanceAfter, ownerBalanceBefore - amount, "Incorrect owner balance");
+        assertEq(spenderAccBalanceAfter, spenderAccBalanceBefore + amount, "Incorrect spender balance");
+
+    }
+
+    function testTotalSupply() public {
+        assertEq(token.totalSupply(), type(uint).max);
     }
 }
