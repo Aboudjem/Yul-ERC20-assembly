@@ -9,9 +9,10 @@ bytes32 constant symbolLength = 0x0000000000000000000000000000000000000000000000
 
 bytes32 constant error = 0xaabbccdd00000000000000000000000000000000000000000000000000000000;
 
+bytes32 constant transferHash = 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef;
+
 contract YulERC20 {
 
-    event Transfer(address indexed sender, address indexed receiver, uint256 amount);
 
     mapping(address => uint256) internal _balances;
     mapping(address => uint256) internal _allowances;
@@ -58,17 +59,6 @@ contract YulERC20 {
         }
     }
 
-    function callBalance() public view returns(uint) {
-        assembly {
-            let memptr := mload(0x40)
-            mstore(memptr, caller())
-            mstore(add(memptr, 0x20), 0x00)
-            let callerBalance := sload(keccak256(memptr, 0x40))
-            mstore(add(memptr, 0x40), callerBalance)
-            return(0x00, 0x20)
-        }
-    }
-
     function transfer(address, uint256) public returns(bool) {
         assembly {
             let memptr := mload(0x40)
@@ -84,6 +74,7 @@ contract YulERC20 {
                 revert(0x00, 0x00) }
 
             let newCallerBalance := sub(callerBalance, value)
+            sstore(callerBalanceSlot, newCallerBalance)
 
             mstore(memptr, receiver)
             mstore(add(memptr, 0x20), 0x00)
@@ -94,8 +85,12 @@ contract YulERC20 {
 
             let newReceiverBalance := add(receiverBalance, value)
 
-            sstore(callerBalanceSlot, newCallerBalance)
             sstore(receiverBalanceSlot, newReceiverBalance)
+
+            mstore(0x00, value)
+            log3(0x00, 0x20, transferHash, caller(), receiver)
+
+
 
             mstore(0x00, 0x01)
             return(0x00,0x20)
