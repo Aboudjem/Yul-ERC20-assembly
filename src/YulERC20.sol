@@ -128,8 +128,10 @@ contract YulERC20 {
         // Load the input receiver address
         let receiver := calldataload(0x04)
             if lt(callerBalance, value) {
+                // Store the transferError hash
+                mstore(0x00, transferError)
             // Revert if the caller's balance is less than the transfer value
-                revert(0x00, 0x00)
+                revert(0x00, 0x20)
             }
 
         // Calculate the new caller balance
@@ -222,7 +224,7 @@ contract YulERC20 {
             let callerAllowance := sload(allowanceSlot)
 
             if lt(callerAllowance, amount) {
-                mstore(memptr, error)
+                mstore(memptr, allowanceError)
                 mstore(add(memptr, 0x04), sender)
                 mstore(add(memptr, 0x24), caller())
                 revert(memptr, 0x44)
@@ -240,7 +242,7 @@ contract YulERC20 {
 
 
             if lt(senderBalance, amount) {
-                mstore(0x00, error)
+                mstore(0x00, transferError)
                 revert(0x00, 0x04)
             }
 
