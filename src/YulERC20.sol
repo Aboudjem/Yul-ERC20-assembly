@@ -92,6 +92,8 @@ contract YulERC20 {
         }
     }
 
+    /// @notice Returns the balance of the given address.
+    /// @return The balance of the given address as a uint256.
     function balanceOf(address) public view returns(uint256) {
         assembly {
             // Load the input address into memory
