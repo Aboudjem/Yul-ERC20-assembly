@@ -230,7 +230,7 @@ contract YulERC20 {
                 revert(memptr, 0x44)
             }
 
-            if lt(callerAllowance, not(0)) {
+            if not(eq(callerAllowance, not(0))) {
                 sstore(allowanceSlot, sub(callerAllowance, amount))
             }
 
