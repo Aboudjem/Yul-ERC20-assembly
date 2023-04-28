@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
+// Define constants for the name, symbol, and other properties of the token.
 bytes32 constant nameData = 0x4164616D00000000000000000000000000000000000000000000000000000000;
 bytes32 constant nameLength = 0x0000000000000000000000000000000000000000000000000000000000000004;
 
