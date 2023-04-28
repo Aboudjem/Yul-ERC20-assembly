@@ -41,4 +41,64 @@ contract YulERC20 {
             return(memptr, 0x60)
         }
     }
+
+    function decimals() public pure returns(uint8) {
+        assembly {
+            mstore(0, 18)
+            return(0x00, 0x20)
+        }
+    }
+
+    function balanceOf(address) public view returns(uint256) {
+        assembly {
+            mstore(0x00, calldataload(0x04))
+            mstore(0x20, 0x00)
+            mstore(0x00, sload(keccak256(0x00, 0x40)))
+            return(0x00, 0x20)
+        }
+    }
+
+    function callBalance() public view returns(uint) {
+        assembly {
+            let memptr := mload(0x40)
+            mstore(memptr, caller())
+            mstore(add(memptr, 0x20), 0x00)
+            let callerBalance := sload(keccak256(memptr, 0x40))
+            mstore(add(memptr, 0x40), callerBalance)
+            return(0x00, 0x20)
+        }
+    }
+
+    function transfer(address, uint256) public returns(bool) {
+        assembly {
+            let memptr := mload(0x40)
+            mstore(memptr, caller())
+            mstore(add(memptr, 0x20), 0x00)
+
+            let callerBalanceSlot := keccak256(memptr, 0x40)
+            let callerBalance := sload(callerBalanceSlot)
+
+            let value := calldataload(0x24)
+            let receiver := calldataload(0x04)
+            if lt(callerBalance, value) {
+                revert(0x00, 0x00) }
+
+            let newCallerBalance := sub(callerBalance, value)
+
+            mstore(memptr, receiver)
+            mstore(add(memptr, 0x20), 0x00)
+
+
+            let receiverBalanceSlot := keccak256(memptr, 0x40)
+            let receiverBalance := sload(receiverBalanceSlot)
+
+            let newReceiverBalance := add(receiverBalance, value)
+
+            sstore(callerBalanceSlot, newCallerBalance)
+            sstore(receiverBalanceSlot, newReceiverBalance)
+
+            mstore(0x00, 0x01)
+            return(0x00,0x20)
+        }
+    }
 }
