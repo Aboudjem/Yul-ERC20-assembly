@@ -14,6 +14,7 @@ bytes32 constant allowanceError = 0x689c22716bc6f868769c9f108f2504c1a1115ab4db66
 bytes32 constant transferError = 0x4ffddc7cd3d35a21977f8035daee75dcf80dc6f05d181b97b2492a7f85bc4a0d;
 
 bytes32 constant transferHash = 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef;
+bytes32 constant approvalHash = 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925;
 
 contract YulERC20 {
 
