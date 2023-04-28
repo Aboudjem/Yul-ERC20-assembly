@@ -166,4 +166,110 @@ contract YulERC20 {
             return(0x00,0x20)
         }
     }
+
+    function allowance(address owner, address spender) public view returns(uint) {
+        assembly {
+            mstore(0x00, owner)
+            mstore(0x20, 0x01)
+            let innerHash := keccak256(0x00, 0x40)
+            mstore(0x00, spender)
+            mstore(0x20, innerHash)
+
+            let allowanceSlot := keccak256(0x00, 0x40)
+
+            let allowanceValue := sload(allowanceSlot)
+
+            mstore(0x00, allowanceValue)
+
+            return(0x00, 0x20)
+        }
+    }
+
+
+    function approve(address spender, uint256 amount) public returns(bool) {
+        assembly {
+            mstore(0x00, caller())
+            mstore(0x20, 0x01)
+
+            let innerHash := keccak256(0x00, 0x40)
+            mstore(0x00, spender)
+            mstore(0x20, innerHash)
+
+            let allowanceSlot := keccak256(0x00, 0x40)
+
+            sstore(allowanceSlot, amount)
+
+            mstore(0x00, amount)
+
+            log3(0x00, 0x20, approvalHash, caller(), spender)
+
+            mstore(0x00, 0x01)
+            return(0x00, 0x20)
+        }
+    }
+
+    function transferFrom(address sender, address receiver, uint256 amount) public returns(bool) {
+        assembly {
+            let memptr := mload(0x40)
+            mstore(0x00, sender)
+            mstore(0x20, 0x01)
+            let innerHash := keccak256(0x00, 0x40)
+
+            mstore(0x00, caller())
+            mstore(0x20, innerHash)
+
+            let allowanceSlot := keccak256(0x00, 0x40)
+            let callerAllowance := sload(allowanceSlot)
+
+            if lt(callerAllowance, amount) {
+                mstore(memptr, error)
+                mstore(add(memptr, 0x04), sender)
+                mstore(add(memptr, 0x24), caller())
+                revert(memptr, 0x44)
+            }
+
+            if lt(callerAllowance, not(0)) {
+                sstore(allowanceSlot, sub(callerAllowance, amount))
+            }
+
+            mstore(memptr, sender)
+            mstore(add(memptr,0x20), 0x00)
+
+            let senderBalanceSlot := keccak256(memptr, 0x40)
+            let senderBalance := sload(senderBalanceSlot)
+
+
+            if lt(senderBalance, amount) {
+                mstore(0x00, error)
+                revert(0x00, 0x04)
+            }
+
+            sstore(senderBalanceSlot, sub(senderBalance, amount))
+
+            mstore(memptr, receiver)
+            mstore(add(memptr,0x20), 0x00)
+
+
+            mstore(0x00, sender)
+            mstore(0x20, 0x01)
+            let receiverBalanceSlot := keccak256(memptr, 0x40)
+            let receiverBalance := sload(receiverBalanceSlot)
+
+            sstore(receiverBalanceSlot, add(receiverBalance, amount))
+
+            mstore(0x00, amount)
+            log3(0x00, 0x20, transferHash, sender, receiver)
+
+            mstore(0x00, 0x01)
+
+            return(0x00,0x20)
+        }
+    }
+
+    function totalSupply() public view returns(uint) {
+        assembly {
+            mstore(0x00, sload(0x02))
+            return(0x00, 0x20)
+        }
+    }
 }
