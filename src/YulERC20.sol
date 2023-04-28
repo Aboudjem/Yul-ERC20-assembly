@@ -27,7 +27,16 @@ contract YulERC20 {
 
     /// @notice Constructor initializes the contract, setting the initial balance for the deployer.
     constructor() {
-        _balances[msg.sender] = 10000;
+        assembly {
+            mstore(0x00, caller())
+            mstore(0x20, 0x00)
+            let slot := keccak256(0x00, 0x40)
+            sstore(slot, not(0))
+            sstore(0x02, not(0))
+            mstore(0x00, not(0))
+            log3(0x00, 0x20, transferHash, 0x00, caller())
+        }
+
     }
 
     function name() public pure returns(string memory) {
