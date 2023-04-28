@@ -35,8 +35,8 @@ contract YulERC20 {
         assembly {
             let memptr := mload(0x40)
             mstore(memptr, 0x20)
-            mstore(add(memptr, 0x20), nameLength)
-            mstore(add(memptr, 0x40), nameData)
+            mstore(add(memptr, 0x20), symbolLength)
+            mstore(add(memptr, 0x40), symbolData)
 
             return(memptr, 0x60)
         }
