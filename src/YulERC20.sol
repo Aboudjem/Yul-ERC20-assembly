@@ -10,6 +10,16 @@ bytes32 constant symbolLength = 0x0000000000000000000000000000000000000000000000
 bytes32 constant error = 0xaabbccdd00000000000000000000000000000000000000000000000000000000;
 
 contract YulERC20 {
+
+    event Transfer(address indexed sender, address indexed receiver, uint256 amount);
+
+    mapping(address => uint256) internal _balances;
+    mapping(address => uint256) internal _allowances;
+
+    constructor() {
+        _balances[msg.sender] = 10000;
+    }
+
     function name() public pure returns(string memory) {
         assembly {
             let memptr := mload(0x40)
