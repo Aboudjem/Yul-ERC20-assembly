@@ -10,7 +10,7 @@ contract YulERC20Test is Test {
     address owner;
 
     function setUp() public {
-        vm.prank(owner);
+        vm.startPrank(owner);
         token = new YulERC20();
     }
 
