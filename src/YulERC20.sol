@@ -85,7 +85,9 @@ contract YulERC20 {
     /// @return The number of decimals as a uint8.
     function decimals() public pure returns(uint8) {
         assembly {
+            // Store the number of decimals
             mstore(0, 18)
+            // Return the memory containing the decimals value
             return(0x00, 0x20)
         }
     }
