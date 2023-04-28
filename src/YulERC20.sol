@@ -16,12 +16,16 @@ bytes32 constant transferError = 0x4ffddc7cd3d35a21977f8035daee75dcf80dc6f05d181
 bytes32 constant transferHash = 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef;
 bytes32 constant approvalHash = 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925;
 
+/// @title YulERC20 - An example of a token contract using Yul assembly for low-level EVM interactions.
 contract YulERC20 {
 
 
     mapping(address => uint256) internal _balances;
     mapping(address => uint256) internal _allowances;
 
+    uint internal _totalSupply;
+
+    /// @notice Constructor initializes the contract, setting the initial balance for the deployer.
     constructor() {
         _balances[msg.sender] = 10000;
     }
