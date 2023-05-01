@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+pragma solidity 0.8.19;
 
 import "forge-std/Test.sol";
 import "../src/YulERC20.sol";
@@ -7,7 +7,7 @@ import "../src/YulERC20.sol";
 contract YulERC20Test is Test {
     YulERC20 public token;
 
-    address owner;
+    address public owner;
 
     function setUp() public {
         vm.startPrank(owner);
@@ -29,7 +29,6 @@ contract YulERC20Test is Test {
     function testBalanceOf(address) public {
         assertEq(token.balanceOf(owner), type(uint).max);
     }
-
 
     function testTransfer(address acc) public {
         assertEq(token.balanceOf(owner), type(uint).max);
@@ -53,21 +52,40 @@ contract YulERC20Test is Test {
         uint ownerBalanceBefore = token.balanceOf(owner);
         uint spenderAccBalanceBefore = token.balanceOf(spenderAcc);
 
-        assertEq(ownerBalanceBefore, type(uint).max, "Balance of Owner should be uintMax");
+        assertEq(
+            ownerBalanceBefore,
+            type(uint).max,
+            "Balance of Owner should be uintMax"
+        );
         assertEq(spenderAccBalanceBefore, 0, "Balance of Spender should be 0");
 
         vm.stopPrank();
         vm.prank(spenderAcc);
-        assertEq(token.transferFrom(owner, spenderAcc, amount), true, "TransferFrom Failed");
+        assertEq(
+            token.transferFrom(owner, spenderAcc, amount),
+            true,
+            "TransferFrom Failed"
+        );
 
         uint ownerBalanceAfter = token.balanceOf(owner);
         uint spenderAccBalanceAfter = token.balanceOf(spenderAcc);
 
-        assertEq(token.allowance(owner, spenderAcc), allowance - amount, "Incorrect allowance");
+        assertEq(
+            token.allowance(owner, spenderAcc),
+            allowance - amount,
+            "Incorrect allowance"
+        );
 
-        assertEq(ownerBalanceAfter, ownerBalanceBefore - amount, "Incorrect owner balance");
-        assertEq(spenderAccBalanceAfter, spenderAccBalanceBefore + amount, "Incorrect spender balance");
-
+        assertEq(
+            ownerBalanceAfter,
+            ownerBalanceBefore - amount,
+            "Incorrect owner balance"
+        );
+        assertEq(
+            spenderAccBalanceAfter,
+            spenderAccBalanceBefore + amount,
+            "Incorrect spender balance"
+        );
     }
 
     function testTotalSupply() public {
