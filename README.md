@@ -1,3 +1,11 @@
+[![Solidity 0.8.19](https://img.shields.io/badge/Solidity-0.8.19-blue)](https://soliditylang.org/)
+[![Yul](https://img.shields.io/badge/-Yul-9cf)](https://solidity.readthedocs.io/en/latest/yul.html)
+[![Assembly](https://img.shields.io/badge/-Assembly-orange)](https://en.wikipedia.org/wiki/Assembly_language)
+[![Foundry](https://img.shields.io/badge/Foundry-yellow)](https://example.com/foundry)
+[![Twitter: @adamboudj](https://img.shields.io/twitter/follow/adamboudj.svg?style=social)](https://twitter.com/adamboudj)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+
 # Yul-ERC20-Assembly :fire: :rocket:
 
 Welcome to the **Yul-ERC20-Assembly** repository, a high-performance, low-level ERC-20 token contract written using inline Assembly / Yul for EVM interactions! This project leverages the power of Foundry, a smart contract development toolchain that streamlines your workflow with dependency management, compilation, testing, deployment, and more. :sparkles:
