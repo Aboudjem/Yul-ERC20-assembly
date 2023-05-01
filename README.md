@@ -1,4 +1,3 @@
-
 # Yul-ERC20-Assembly :fire: :rocket:
 
 Welcome to the **Yul-ERC20-Assembly** repository, a high-performance, low-level ERC-20 token contract written using inline Assembly / Yul for EVM interactions! This project leverages the power of Foundry, a smart contract development toolchain that streamlines your workflow with dependency management, compilation, testing, deployment, and more. :sparkles:
@@ -13,8 +12,8 @@ The Yul-ERC20-Assembly project is a groundbreaking implementation of an ERC20 to
 
 ## :zap: Features
 
--   High-performance token contract using Yul Assembly :racing_car:
--   Managed by Foundry, a powerful smart contract development toolchain :wrench:
+- High-performance token contract using Yul Assembly :racing_car:
+- Managed by Foundry, a powerful smart contract development toolchain :wrench:
 
 ![Optimization](https://media.giphy.com/media/RHEqKwRZDwFKE/giphy.gif)
 
@@ -22,9 +21,9 @@ The Yul-ERC20-Assembly project is a groundbreaking implementation of an ERC20 to
 
 This project includes:
 
--   A Yul-based ERC20 token contract :moneybag:
--   Inline assembly (Yul) for an improved developer experience :sunglasses:
--   Detailed inline comments and documentation :books:
+- A Yul-based ERC20 token contract :moneybag:
+- Inline assembly (Yul) for an improved developer experience :sunglasses:
+- Detailed inline comments and documentation :books:
 
 ![Contract](https://media.giphy.com/media/26tPoyDhjiJ2g7rEs/giphy.gif)
 
@@ -36,21 +35,19 @@ This project includes:
 git clone https://github.com/aboudjem/Yul-ERC20-Assembly.git
 cd Yul-ERC20-Assembly
 
-``` 
+```
 
 2.  Compile the contract:
 
 ```
 forge compile
-``` 
+```
 
 3.  Run tests:
 
-
 ```
 forge test
-``` 
-
+```
 
 ![Getting started](https://media.giphy.com/media/xUOxfh6ZM75efM3Bqo/giphy.gif)
 
@@ -58,9 +55,9 @@ forge test
 
 Dive into the world of Yul Assembly and low-level EVM coding with these helpful resources:
 
--   [Solidity Yul Documentation](https://docs.soliditylang.org/en/latest/yul.html)
--   [Advanced Solidity, Yul, and Assembly Course on Udemy](https://www.udemy.com/course/advanced-solidity-yul-and-assembly/)
--   [Yul and EVM Assembly YouTube Tutorial](https://www.youtube.com/watch?v=btDOvn8pLkA)
+- [Solidity Yul Documentation](https://docs.soliditylang.org/en/latest/yul.html)
+- [Advanced Solidity, Yul, and Assembly Course on Udemy](https://www.udemy.com/course/advanced-solidity-yul-and-assembly/)
+- [Yul and EVM Assembly YouTube Tutorial](https://www.youtube.com/watch?v=btDOvn8pLkA)
 
 ![Learning](https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif)
 

@@ -1,0 +1,30 @@
+{
+  "name": "yul-erc20-assembly",
+  "version": "1.0.0",
+  "description": "Welcome to the **Yul-ERC20-Assembly** repository, a high-performance, low-level ERC-20 token contract written using inline Assembly / Yul for EVM interactions! This project leverages the power of Foundry, a smart contract development toolchain that streamlines your workflow with dependency management, compilation, testing, deployment, and more. :sparkles:",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "npx prettier \"{src,test,script}/**/*.{json,sol,md}\" --check && npx solhint \"{src,test,script}/**/*.{json,sol,md}\"",
+    "lint:fix": "npx prettier \"{src,test,script}/**/*.{json,sol,md}\" --write && npx solhint \"{src,test,script}/**/*.{json,sol,md}\" --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aboudjem/Yul-ERC20-assembly.git"
+  },
+  "keywords": ["erc20", "erc-20", "assembly", "yul", "evm", "ethereum"],
+  "author": "aboudjem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aboudjem/Yul-ERC20-assembly/issues"
+  },
+  "homepage": "https://github.com/Aboudjem/Yul-ERC20-assembly#readme",
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "solhint": "^3.4.1",
+    "solhint-plugin-prettier": "^0.0.5"
+  }
+}
