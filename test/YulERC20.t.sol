@@ -7,7 +7,7 @@ import "../src/YulERC20.sol";
 contract YulERC20Test is Test {
     YulERC20 public token;
 
-    address owner;
+    address public owner;
 
     function setUp() public {
         vm.startPrank(owner);
