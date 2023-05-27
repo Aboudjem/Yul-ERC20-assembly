@@ -1,34 +1,34 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
-/// The name of the token.
+// The name of the token.
 bytes32 constant nameData = 0x4164616D00000000000000000000000000000000000000000000000000000000;
 bytes32 constant nameLength = 0x0000000000000000000000000000000000000000000000000000000000000004;
 
-/// The symbol of the token.
+// The symbol of the token.
 bytes32 constant symbolData = 0x4144580000000000000000000000000000000000000000000000000000000000;
 bytes32 constant symbolLength = 0x0000000000000000000000000000000000000000000000000000000000000003;
 
-/// The error message for insufficient allowance.
+// The error message for insufficient allowance.
 bytes32 constant allowanceError = 0x689c22716bc6f868769c9f108f2504c1a1115ab4db66410e8a48bd8797222bb7;
 
-/// The error message for insufficient balance to transfer.
+// The error message for insufficient balance to transfer.
 bytes32 constant transferError = 0x4ffddc7cd3d35a21977f8035daee75dcf80dc6f05d181b97b2492a7f85bc4a0d;
 
-/// The hash of the Transfer event signature.
+// The hash of the Transfer event signature.
 bytes32 constant transferHash = 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef;
 
-/// The hash of the Approval event signature.
+// The hash of the Approval event signature.
 bytes32 constant approvalHash = 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925;
 
 /// @author Aboudjem - Adam BOUDJEMAA
 /// @title YulERC20 - An example of a token contract using Yul assembly for low-level EVM interactions.
 contract YulERC20 {
-    /// Mapping to store token balances for each address.
-    mapping(address => uint256) internal _balances;
+    /// Mapping to store token balances for each address no need to implement it
+    // mapping(address => uint256) internal _balances;
 
-    /// Mapping to store token allowances for each pair of owner and spender addresses.
-    mapping(address => uint256) internal _allowances;
+    /// Mapping to store token allowances for each pair of owner and spender addresses no need to implement it
+    // mapping(address=> mapping(address => uint256)) internal _allowances;
 
     /// The total supply of the token.
     uint internal _totalSupply;
@@ -128,28 +128,6 @@ contract YulERC20 {
             log3(0x00, 0x20, approvalHash, caller(), spender)
 
             // Set return value to true (success) and return
-            mstore(0x00, 0x01)
-            return(0x00, 0x20)
-        }
-    }
-
-    function approve(address spender, uint256 amount) public returns (bool) {
-        assembly {
-            mstore(0x00, caller())
-            mstore(0x20, 0x01)
-
-            let innerHash := keccak256(0x00, 0x40)
-            mstore(0x00, spender)
-            mstore(0x20, innerHash)
-
-            let allowanceSlot := keccak256(0x00, 0x40)
-
-            sstore(allowanceSlot, amount)
-
-            mstore(0x00, amount)
-
-            log3(0x00, 0x20, approvalHash, caller(), spender)
-
             mstore(0x00, 0x01)
             return(0x00, 0x20)
         }
